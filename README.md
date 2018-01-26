@@ -45,14 +45,13 @@ Sample response from payment inspection end point:
 
 Pseudocode
 ```
-  
 function check_escrow() {
   
   if (time.now() <  contract.not_before) {
     return;
   }
   
-  if (time.now() >= contract.not_after) {
+  if (time.now() > contract.not_after) {
     self.ballance += escrow.amount;
     return;
   }
