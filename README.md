@@ -11,11 +11,14 @@ The escrow based solution has an advantage where it does not need to wait for co
 Both solutions depend on adoption by at least one fiat money transfer service such as Paypal, Skrill, OKPAY, etc. The service should:
   1. Allow users to generate (multiple) alias tags for their accounts and ensure the tags are unique within the service
   2. Allow the sender to opt-out of charge back rights for the transfer
-  3. Allow the sender to specify a *sender-alias-tag*, a *receiver-alias-tag*, and a *not-after* timestamp when making the transfer
+  3. When setting up a transfer, allow the sender to specify
+    - a *sender-alias-tag*
+    - a *receiver-alias-tag*
+    - a *not-after* timestamp
+    - a *proof-of-payment query token*
   4. Verify the *receiver-alias-tag* is valid and belongs to the reseiver
   5. Verify that the transfer could be processed before the *not-after* timestamp
-  4. Process the transfer and generate a *proof-of-payment inspection token*
-  5. Offer an end point to receive the inspection token and send back a json response verifying the non-refundable payment has gone through
+  6. Offer an end point to receive the pop query token and send back a json response verifying the non-refundable payment has gone through
 
 ### Escrow Service
 Neither solution will work if no fiat money transfer service implements a *proof-of-payment* endpoint. But, for the first solution (escrow service), that is the only dependancy.
