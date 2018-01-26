@@ -52,7 +52,7 @@ function check_escrow() {
   }
   
   if (time.now() > contract.not_after) {
-    self.ballance += escrow.amount;
+    self.balance += escrow.amount;
     return;
   }
   
@@ -70,7 +70,7 @@ function check_escrow() {
         "reversible" in pop && ( pop.reversible == contract.reversible || contract.reversible ) &&
         "timestamp" in pop && pop.timestamp >= contract.not_before && pop.timestamp <= contract.not_after
       ) {
-      self.ballance -= escrow.amount;
+      self.balance -= escrow.amount;
       contract.receiving_wallet.send(escrow.amount);
   }
   
