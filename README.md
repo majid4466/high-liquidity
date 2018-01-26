@@ -25,24 +25,50 @@ Neither solution will work if no fiat money transfer service implements a *proof
 
 To examine it, let's assume the following scenario:
 
-Alice and Bob both have an account with Escrow. They also both have an account on Skrill. Alice has one Monero credit in the escrow. So the coin is in the Escrow's wallet, and Alice has one Monero credit in Escrow's records. She can withdraw her coin to her wallet if she wants. She can also transfer the credit to another Escrow user (e.g. Bob).
+Alice and Bob both have an account with Escrow. They also both have an account on Skrill. Alice has a two ETH credit in the escrow service. So the coin is in the Escrow's wallet not Alice's. She can withdraw her coin to her wallet if she wants. She can also transfer the credit to another Escrow user (e.g. Bob).
 
-Sample request to payment inspection end point:
-https://pop.skrill.com/e6rew34njt57dsq
+Alice wants to sell one ETH for 1000 USD. She places the offer:
 
-Sample response from payment inspection end point:
+```
+1 ETH for 1000 USD
+Skrill Accepted
+Use y5xo7s93sk in PoP receiver-tag
+Use e6rew34njt57dsq as PoP query token
+Trade window open till 1516959500
+[(Hidden) Send USD to alice23@gmail.com]
+```
+
+
+
+Bob needs some ETH and finds Alice's offer good enough and decides to buy it. He clicks the "Buy" button.
+
+The system locks the offer and shows Bob the receiving email for Alice.
+
+Bob logs in to Skrill and opens the payment form. He enters:
+  - 1000 USD
+  - to be paid to alice23@gmail.com
+  - non-reversiblly
+  - before 1516959500
+  - using y5xo7s93sk as receiver-tag
+  - making PoP available with token e6rew34njt57dsq
+Bob makes the payment.
+
+When the payment is processed, bob clicks on "Check Proof-of-Payment" on Escrow site
+Escrow server checks the result by sending a request to https://pop.skrill.com/e6rew34njt57dsq
+Escrow server receives the following response:
 ```
 {
   token: "e6rew34njt57dsq",
   service: "skrill",
   sender: "45f63k945t",
   receiver: "y5xo7s93sk",
-  amount: 360.50,
+  amount: 1000.00,
   currency: "USD",
   reversible: false,
   timestamp: 1516953562
 }
 ```
+Having verified PoP, the Escrow site 
 
 ### Smart Contract
 
