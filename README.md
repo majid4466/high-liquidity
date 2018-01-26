@@ -18,8 +18,9 @@ Both solutions depend on adoption by at least one fiat money transfer service su
   5. Offer an end point to receive the inspection token and send back a json response verifying the non-refundable payment has gone through
 
 ### Escrow Service
+Neither solution will work if no fiat money transfer service implements a *proof-of-payment* endpoint. But, for the first solution (escrow service), that is the only dependancy.
 
-Let's assume the following scenario:
+To examine it, let's assume the following scenario:
 
 Alice and Bob both have an account with Escrow. They also both have an account on Skrill. Alice has one Monero credit in the escrow. So the coin is in the Escrow's wallet, and Alice has one Monero credit in Escrow's records. She can withdraw her coin to her wallet if she wants. She can also transfer the credit to another Escrow user (e.g. Bob).
 
@@ -41,4 +42,41 @@ Sample response from payment inspection end point:
 ```
 
 ### Smart Contract
-To be added
+
+Pseudocode
+```
+  
+function check_escrow() {
+  
+  if (time.now() <  contract.not_before) {
+    return;
+  }
+  
+  if (time.now() >= contract.not_after) {
+    self.ballance += escrow.amount;
+    return;
+  }
+  
+  pop = json_decode(wget contract.endpoint + '/' + contract.token);
+  if (typeof pop != object) {
+    return;
+  }
+  
+  if (
+        "token" in pop && pop.token == contract.token &&
+        "sender" in pop && pop.sender == contract.sender_tag &&
+        "receiver" in pop && pop.receiver == contract.receiver_tag &&
+        "amount" in pop && pop.amount == contract.amount &&
+        "currency" in pop && pop.currency == contract.currency &&
+        "reversible" in pop && ( pop.reversible == contract.reversible || contract.reversible ) &&
+        "timestamp" in pop && pop.timestamp >= contract.not_before && pop.timestamp <= contract.not_after
+      ) {
+      self.ballance -= escrow.amount;
+      contract.receiving_wallet.send(escrow.amount);
+  }
+  
+  return;
+  
+}
+```
+To be continued
