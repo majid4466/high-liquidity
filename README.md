@@ -12,10 +12,10 @@ Both solutions depend on adoption by at least one fiat money transfer service su
   1. Allow users to generate (multiple) alias tags for their accounts and ensure the tags are unique within the service
   2. Allow the sender to opt-out of charge back rights for the transfer
   3. When setting up a transfer, allow the sender to specify
-    - a *sender-alias-tag*
-    - a *receiver-alias-tag*
-    - a *not-after* timestamp
-    - a *proof-of-payment query token*
+      1. a *sender-alias-tag*
+      2. a *receiver-alias-tag*
+      3. a *not-after* timestamp
+      4. a *proof-of-payment query token*
   4. Verify the *receiver-alias-tag* is valid and belongs to the reseiver
   5. Verify that the transfer could be processed before the *not-after* timestamp
   6. Offer an end point to receive the pop query token and send back a json response verifying the non-refundable payment has gone through
