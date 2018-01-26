@@ -37,12 +37,13 @@ Use e6rew34njt57dsq as PoP query token
 Trade window open till 1516959500
 [(Hidden) Send USD to alice23@gmail.com]
 ```
+Escrow service subtracts 1 ETH credit from Alice's account and creates a temporary Locked account for Alice's offer and places 1 ETH credit in it. Alice now has access only to the 1 ETH that is in her ordinary account.
 
-
+She can cancel her offer before she enters into a trade with another user. If she cancels the offer, the 1 ETH will be re-credited to her account.
 
 Bob needs some ETH and finds Alice's offer good enough and decides to buy it. He clicks the "Buy" button.
 
-The system locks the offer and shows Bob the receiving email for Alice.
+The system locks the offer and shows Bob the receiving email for Alice. At this point Alice cannot cancel the offer anymore.
 
 Bob logs in to Skrill and opens the payment form. He enters:
   - 1000 USD
@@ -51,9 +52,10 @@ Bob logs in to Skrill and opens the payment form. He enters:
   - before 1516959500
   - using y5xo7s93sk as receiver-tag
   - making PoP available with token e6rew34njt57dsq
+
 Bob makes the payment.
 
-When the payment is processed, bob clicks on "Check Proof-of-Payment" on Escrow site
+When the payment is processed, Bob clicks on "Check Proof-of-Payment" on Escrow site
 Escrow server checks the result by sending a request to https://pop.skrill.com/e6rew34njt57dsq
 Escrow server receives the following response:
 ```
@@ -68,7 +70,12 @@ Escrow server receives the following response:
   timestamp: 1516953562
 }
 ```
-Having verified PoP, the Escrow site 
+Having verified PoP, the Escrow site adds 1 ETH credit to Bob's account and marks the offer as gone-through.
+
+Here are what could have taken place if the users took a different course of action.
+
+  - Alice could have changed her mind after creating the offer and cancelled the offer. In this case Her locked 1 ETH would have been returned to her and Bob would have received an error informing him the offer no longer existed if he clicked "Buy".
+  - Bob could have changed his mind after clicking "Buy". 
 
 ### Smart Contract
 
