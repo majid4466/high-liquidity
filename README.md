@@ -18,9 +18,27 @@ Both solutions depend on adoption by at least one fiat money transfer service su
   5. Offer an end point to receive the inspection token and send back a json response verifying the non-refundable payment has gone through
 
 ### Escrow Service
+
 Let's assume the following scenario:
 
 Alice and Bob both have an account with Escrow. They also both have an account on Skrill. Alice has one Monero credit in the escrow. So the coin is in the Escrow's wallet, and Alice has one Monero credit in Escrow's records. She can withdraw her coin to her wallet if she wants. She can also transfer the credit to another Escrow user (e.g. Bob).
+
+Sample request to payment inspection end point:
+https://pop.skrill.com/e6rew34njt57dsq
+
+Sample response from payment inspection end point:
+```
+{
+  token: "e6rew34njt57dsq",
+  service: "skrill",
+  sender: "45f63k945t",
+  receiver: "y5xo7s93sk",
+  amount: 360.50,
+  currency: "USD",
+  reversible: false,
+  timestamp: 1516953562
+}
+```
 
 ### Smart Contract
 To be added
